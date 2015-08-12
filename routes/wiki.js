@@ -20,26 +20,16 @@ router
 		var page = new Page({
 			title: req.body.title,
 			content: req.body.content,
-			urlTitle: generateUrlTitle(req.body.title)
 		})
 		//console.log(page.urlTitle);
 		page.save().then(function(){
 			res.redirect('/');
-		})
+		}).then(null,next);
 		
 		//res.send(); //some sort page object
 	})
 
-function generateUrlTitle (title) {
-  if (typeof title !== 'undefined' && title !== '') {
-    // Removes all non-alphanumeric characters from title
-    // And make whitespace underscore
-    return title.replace(/\s+/g, '_').replace(/\W/g, '');
-  } else {
-    // Generates random 5 letter string
-    return Math.random().toString(36).substring(2, 7);
-  }
-}
+
 
 
 
