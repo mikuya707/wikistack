@@ -28,8 +28,7 @@ router
 		})
 		//console.log(page.urlTitle);
 		page.save().then(function(page){
-			//res.json(page);
-			res.redirect('/');
+			res.redirect('/wiki/'+page.urlTitle);
 		}).then(null,next);
 		
 		//res.send(); //some sort page object
