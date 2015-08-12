@@ -27,6 +27,10 @@ var userSchema = new mongoose.Schema({
 var Page = mongoose.model('Page', pageSchema);
 var User = mongoose.model('User', userSchema);
 
+pageSchema.virtual('route').get(function(){
+	return "/wiki/" + this.urlTitle;
+});
+
 module.exports = {
   Page: Page,
   User: User
