@@ -19,10 +19,11 @@ router
 	.post('/', function(req, res, next){
 		var page = new Page({
 			title: req.body.title,
-			content: req.body.content,
+			content: req.body.content
 		})
 		//console.log(page.urlTitle);
-		page.save().then(function(){
+		page.save().then(function(page){
+			//res.json(page);
 			res.redirect('/');
 		}).then(null,next);
 		
