@@ -4,12 +4,12 @@
   <h3>Pages</h3>
   <hr>
   <ul class="list-unstyled">
-    <!-- <ul> -->
-
-  		{% for page in pages %}
-    	<li><a href='{{page.urlTitle}}'>{{ page.title }}</a></li>
-    	<!-- <li><a href='#'>page.title</a></li> -->
-  		{% endfor %}
-	<!-- </ul> -->
+    {% if pages.length > 0 %}
+    {% for page in pages %}
+      <li>{{ page | pageLink }}</li>
+    {% endfor %}
+{% else %}
+  There are no pages. Why don't you <a href='/wiki/add'>add one</a>?
+{% endif %}
   </ul>
 {% endblock %}
