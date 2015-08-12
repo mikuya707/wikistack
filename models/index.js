@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 // Notice the `mongodb` protocol; Mongo is basically a kind of server,
 // which handles database requests and sends responses. It's async!
 mongoose.connect('mongodb://localhost/wikistack');
@@ -34,6 +35,16 @@ var userSchema = new mongoose.Schema({
   },
   email: {type: String, required: true, unique: true}
 });
+
+userSchema.statics.findOrCreate = function(props){
+  var self = this;
+  return this.findOne( {email:props.email} ).exec().then(function(user){
+    if(user) {console.log('user found, returning');return user;}
+    var new_user = {name:{first:props.authorName.split(" ")[0],last:props.authorName.split(" ")[1]},email:props.authorEmail};
+    var promisifiedUser = self.create(new_user);
+    return promisifiedUser;
+  });
+};
 
 pageSchema.pre('validate',function(next){
   this.urlTitle = generateUrlTitle(this.title);
