@@ -16,6 +16,11 @@ router
 	.get('/add', function(req, res, next) {
 		res.render('addpage');
 	})
+	.get('/:urlTitle',function(req,res,next){
+		Page.findOne({urlTitle: req.params.urlTitle},function(err,page){
+			res.render('wikipage',page);
+		});
+	})
 	.post('/', function(req, res, next){
 		var page = new Page({
 			title: req.body.title,
