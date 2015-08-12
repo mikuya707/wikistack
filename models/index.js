@@ -43,6 +43,7 @@ pageSchema.pre('validate',function(next){
 var Page = mongoose.model('Page', pageSchema);
 var User = mongoose.model('User', userSchema);
 
+pageSchema.set('route', true);
 pageSchema.virtual('route').get(function(){
 	return "/wiki/" + this.urlTitle;
 });

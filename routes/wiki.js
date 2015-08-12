@@ -9,10 +9,11 @@ var User = models.User;
 /* GET users listing. */
 router
 	.get('/', function(req, res, next) {
-  		//res.send('respond with a resource');
-
-  		res.redirect('/');
-	})
+  		Page.find().exec(function(err, pages){
+  			console.log(pages);
+     	res.render('index', {pages: pages});
+  		})
+  	})
 	.get('/add', function(req, res, next) {
 		res.render('addpage');
 	})
@@ -28,7 +29,8 @@ router
 		})
 		//console.log(page.urlTitle);
 		page.save().then(function(page){
-			res.redirect('/wiki/'+page.urlTitle);
+			//console.log(page);
+			res.redirect(page.toObject({virtuals:true}).route);
 		}).then(null,next);
 		
 		//res.send(); //some sort page object
